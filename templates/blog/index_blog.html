@@ -1,0 +1,45 @@
+{% extends "base_coacha.html"%}
+
+{% block title %}
+<title>Coacha|博客</title>`
+{% endblock %}
+
+{% block body %}
+
+<div id="sidebar" class="sidebar well col-md-3">
+	<ul class="nav nav-pills nav-stacked" role="tablist">
+		<li role="presentation" class="active"><a href="#">概览</a></li>
+		<li role="presentation"><a href="#">文艺青年</a></li>
+		<li role="presentation"><a href="#">程序猴子</a></li>
+		<li role="presentation"><a href="#">全部文章</a></li>
+		<li role="presentation"><a href="#">留言板</a></li>
+	</ul>
+</div>
+<div  id="main" class="col-md-8 col-md-offset-1">
+	{% for blog in blogs reversed%}
+	<div class="well">
+		<h1 class=""><a href="passage?id={{blog.id}}">{{blog.title}}</a></h1>
+		<span class="glyphicon glyphicon-pencil col-md-6">&nbsp{{blog.author}}</span>
+		<span class="glyphicon glyphicon-time col-md-6">&nbsp{{blog.datetime}}</span><br><br>
+		{% for keyword in blog.keywords %}
+		<span class="label label-default glyphicon glyphicon-pushpin">{{keyword}}</span>&nbsp &nbsp
+		{% endfor %}
+		<div>{{blog.content|safe|truncatewords:50}}</div>
+		<a href="passage?id={{blog.id}}" class="badge pull-right">阅读全文</a>
+	</div>
+	{% empty %}
+	<div class="well">
+		<p class="bg-warning">没有文章！</p>
+	</div>
+	{% endfor %}
+	<ul class="pagination pagination-sm pull-right">
+			{% if blogs.has_previous %}
+			    <li><a href="?page={{ blogs.previous_page_number }}">&laquo</a></li>
+			{% endif %}
+			    <li class="active"><a href="#">第{{ blogs.number }}页，共{{ blogs.paginator.num_pages }}页</a></li>
+			{% if blogs.has_next %}
+			    <li><a href="?page={{ blogs.next_page_number }}">&raquo</a></li>
+			{% endif %}
+	</ul>
+</div>
+{% endblock %}

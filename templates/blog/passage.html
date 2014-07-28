@@ -1,0 +1,17 @@
+{% extends "base_coacha.html" %}
+{% block title %}
+<title>Coacha|博客|{{blog.title}}</title>
+{% endblock %}
+{% block body%}
+<div  id="main" class="col-md-8 col-md-offset-2">
+	<div class="well">
+		<h1>{{blog.title}}</h1>
+		<span class="glyphicon glyphicon-pencil col-md-6">&nbsp{{blog.author}}</span>
+		<span class="glyphicon glyphicon-time col-md-6">&nbsp{{blog.datetime}}</span><br><br>
+		{% for keyword in blog.keywords %}
+		<span class="label label-default glyphicon glyphicon-pushpin">{{keyword}}</span>&nbsp &nbsp
+		{% endfor %}
+		<div>{{blog.content|safe}}</div>
+	</div>
+</div>
+{% endblock %}

@@ -1,0 +1,67 @@
+{% extends "infoma.html"%}
+{% block extrahead %}
+	<script src="{{STATIC_URL}}infoma/js/self.js">
+	</script>
+{% endblock %}
+
+{% block body %}
+	<div class="jumbotron">
+		<h1>
+			请填写个人信息
+		</h1>
+		<p>
+			请填写真实的信息，确保<b>QQ号码</b>不要输错，否则后果<b>不堪设想</b>！
+		</p>
+		<a href="result" class="btn btn-primary btn-lg active" role="button">先看看结果<span class="glyphicon glyphicon-arrow-right"></span></a>
+	</div> 
+
+	<div class="well has-feedback">
+		<form role="form" action="store_information" method="post">{% csrf_token %}
+		  <div class="form-group" >
+		    <label for="input_qq">QQ</label>
+		    <input type="text" class="form-control" id="input_qq" placeholder="请输入你的QQ" required="required" name="qq" maxlength="20">
+		    <span class="help-block">QQ号码是<b>身份识别</b>字段。如果你想修改信息，请确保QQ号码填写一致，这样会覆盖之前的信息。<b>不要覆盖他人信息！</b></span>
+		  </div>
+		  <div class="form-group">
+		    <label for="input_name">姓名</label>
+		    <input type="text" class="form-control" id="input_name" placeholder="请输入你的真实姓名" required="required" name="name" maxlength="50">
+		  </div>	
+		  <div class="form-group">
+		    <label for="input_name">地址</label>
+		    <input type="text" class="form-control" id="input_name" placeholder="请填写你工作或者学习的城市，如可能会变化，请注明" required="required" name="address" maxlength="100">
+		  </div>	
+		  <div class="form-group">
+		    <label for="input_tel">电话</label>
+		    <input type="text" class="form-control" id="input_tel" placeholder="请填写你的电话号码" required="required" name="tel" maxlength="20">
+		  </div>	
+		  <div class="form-group">
+		    <label for="input_class">所在班级</label>
+		    <select class="form-control" id="input_class" placeholder="请选择你所在的班级" required="required" name="classNum" size="1">
+		    	<option>18</option>
+  			<option>17</option>
+  			<option>16</option>
+  			<option>15</option>
+  		    	<option>14</option>
+  			<option>13</option>
+  			<option>12</option>
+  			<option>11</option>
+  		    	<option>10</option>
+  			<option>9</option>
+  			<option>8</option>
+  			<option>7</option>
+  		    	<option>6</option>
+  			<option>5</option>
+  			<option>4</option>
+  			<option>3</option>
+  		    	<option>2</option>
+  			<option>1</option>
+		    </select>
+		  </div>	
+		  <div class="form-group">
+		    <label for="input_motto">留言</label>
+		    <textarea class="form-control" rows="3" id="input_motto" placeholder="写一句最想说的话" required="required" name="motto" maxlength="200"></textarea>
+		  </div>	
+		  <button type="submit" class="btn btn-primary">OK，提交</button>
+		</form>
+	</div>
+{% endblock %}

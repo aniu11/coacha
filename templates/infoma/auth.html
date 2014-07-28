@@ -1,0 +1,21 @@
+{% extends "infoma.html"%}
+{% block extrahead %}
+	<script src="{{STATIC_URL}}infoma/js/auth.js">
+	</script>
+{% endblock %}
+
+{% block body %}
+	<div class="jumbotron">
+		<h1>
+			你的年级主任是谁？
+		</h1>
+		<p>
+			裤子脱了，验明正身。<span class="glyphicon glyphicon-thumbs-down"></span>
+		</p>
+
+		<form role="form" action="check" method="post">{% csrf_token %}
+			<input type="text" class="form-control col-md-5" id="ans" placeholder="请输入你的答案" required="required" name="ans" maxlength="20">
+			<span class="input-group-btn"><button id="go" class="btn btn-primary" type="submit" >验证</button></span>
+		</form>
+	</div> 
+{% endblock %}

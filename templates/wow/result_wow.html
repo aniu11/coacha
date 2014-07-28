@@ -1,0 +1,74 @@
+{% extends "wow.html"%}
+{% block extrahead %}
+{% endblock %}
+
+{% block body %}
+	<div class="jumbotron">
+		<h1>
+			不知道咧
+		</h1>
+		<p>
+			欢迎你，{{username}}！<span class="glyphicon glyphicon-thumbs-up"></span>
+		</p>
+
+		<table class="col-md-4 col-md-offset-9">
+			<tr>
+				<td class="col-md-2"><button class="btn btn-info" data-toggle="modal" data-target="#myModal">填写我的状态</button></td>
+				<td class="col-md-1"><a class="btn btn-danger" href="/wow/logout">登出</a></td>
+			</tr>
+		</table>
+
+	</div> 
+
+	<div class="well">
+		<table class="table table-bordered table-hover">
+			<th>
+				{% for date_item in dates %}
+				<td>{{date_item.date}}</td>
+				{% endfor %}
+			</th>
+			{% for key, value in status.items %}
+			<tr>
+				<td>{{key}}</td>
+				{% for statu in value %}
+					{% ifequal statu 0 %}
+					<td class="danger"><span class="glyphicon glyphicon-remove"></span></td>
+					{% else %}
+						{% ifequal statu 1%}
+						<td class="success"><span class="glyphicon glyphicon-ok"></span></td>
+						{% else %}
+						<td class="warning"></span></td>
+						{% endifequal %}
+					{% endifequal%}
+				{% endfor %}
+			</tr>
+			{% endfor %}
+		</table>
+	</div>
+
+	<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+					<h4 class="modal-title" id="myModalLabel">哪几天能上线？</h4>
+				</div>
+				<div class="modal-body col-md-offset-1">
+					<form id="infoform" role="form" action="update" method="post">{% csrf_token %}
+						{% for date_item in dates %}
+						<label class="checkbox input-lg">
+							<input type="checkbox" id="checkbox{{date_item.id}}" value="{{date_item.id}}" name="checklist"> {{date_item.date|date:"M/j, D"}}
+						</label>
+						{% endfor %}
+					</form>
+				</div>
+				<div class="modal-footer">
+					<button type="submit" class="btn btn-primary" form="infoform">OK，提交</button>
+					<button type="button" class="btn btn-danger" data-dismiss="modal">关闭窗口</button>
+				</div>
+			</div>
+		</div>
+	</div>
+
+
+{% endblock %}

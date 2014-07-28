@@ -1,0 +1,24 @@
+{% extends "wow.html"%}
+{% block extrahead %}
+{% endblock %}
+
+{% block body %}
+	<div class="jumbotron">
+		<h1>
+			请输入你的QQ号码：
+		</h1>
+		<p>
+			裤子脱了，验明正身。<span class="glyphicon glyphicon-thumbs-down"></span>
+		</p>
+		<br>
+		<div class="input-group-lg col-md-4">
+			<form role="form" action="auth" method="post">{% csrf_token %}
+				<input type="text" class="form-control col-md-5" id="input_qq" placeholder="请输入你的QQ" required="required" name="qq" maxlength="20">
+				<span class="input-group-btn"><button id="go" class="btn btn-default" type="submit" >Loc'tar Ogar！</button></span>			
+			</form>
+		</div>
+		<br>
+		<br>
+		<br>
+	</div> 
+{% endblock %}
