@@ -24,7 +24,7 @@
 		{% for keyword in blog.keywords %}
 		<span class="label label-default glyphicon glyphicon-pushpin">{{keyword}}</span>&nbsp &nbsp
 		{% endfor %}
-		<div>{{blog.content|safe|truncatewords:50}}</div>
+		<div>{{blog.content|safe|truncatewords_html:50}}</div>
 		<a href="passage?id={{blog.id}}" class="badge pull-right">阅读全文</a>
 	</div>
 	{% empty %}
