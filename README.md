@@ -33,6 +33,6 @@ Changelog
  
 Contact me
 ----
- - email: coachacai@hotmail.com.
- - visit [coacha](112.124.37.147) on internet.
+ - email: coachacai@hotmail.com. 
+ - visit [coacha](http://112.124.37.147) on internet.
  - I'm glad to receive any of your suggestions.
