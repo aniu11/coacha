@@ -18,3 +18,21 @@ class Arriving(models.Model):
 
 	def __unicode__(self):
 		return "%s, %s, %d" %(self.qq, self.date, self.status)
+
+class Notice(models.Model):
+	qq = models.CharField(max_length=50)
+	content = models.CharField(max_length=200)
+	datetime = models.DateTimeField(auto_now=True)
+
+
+	def __unicode__(self):
+		return "%s, %s, %s" %(self.qq, self.datetime, self.content)
+
+class Comment(models.Model):
+	name = models.CharField(max_length=50)
+	content = models.CharField(max_length=100)
+
+	def __unicode__(self):
+		return "%s, %s" %(self.qq, self.content)
+
+		

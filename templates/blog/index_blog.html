@@ -1,22 +1,22 @@
 {% extends "base_coacha.html"%}
 
 {% block title %}
-<title>Coacha|博客</title>`
+<title>Coacha|博客</title>
 {% endblock %}
 
 {% block body %}
 
 <div id="sidebar" class="sidebar well col-md-3">
 	<ul class="nav nav-pills nav-stacked" role="tablist">
-		<li role="presentation" class="active"><a href="#">概览</a></li>
-		<li role="presentation"><a href="#">文艺青年</a></li>
-		<li role="presentation"><a href="#">程序猴子</a></li>
-		<li role="presentation"><a href="#">全部文章</a></li>
+		<li role="presentation" class="active"><a href="">概览</a></li>
+		<li role="presentation"><a href="content?category=2">文艺青年</a></li>
+		<li role="presentation"><a href="content?category=1">程序猴子</a></li>
+		<li role="presentation"><a href="content?category=0">全部文章</a></li>
 		<li role="presentation"><a href="#">留言板</a></li>
 	</ul>
 </div>
 <div  id="main" class="col-md-8 col-md-offset-1">
-	{% for blog in blogs reversed%}
+	{% for blog in blogs%}
 	<div class="well">
 		<h1 class=""><a href="passage?id={{blog.id}}">{{blog.title}}</a></h1>
 		<span class="glyphicon glyphicon-pencil col-md-6">&nbsp{{blog.author}}</span>

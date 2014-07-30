@@ -7,6 +7,8 @@ import time
 from datetime import *
 from wow.models import Arriving
 from wow.models import Wower
+from wow.models import Notice
+from wow.models import Comment
 
 #第一次登录时触发的方法，返回验证页面
 def first_in(request):
@@ -44,9 +46,14 @@ def result(request):
 		dates = get_dates()
 		#获取当前登录名称
 		qq = request.COOKIES["qq"]
+		#获取公告
+		notice = Notice.objects.all().last().content
+		#获取评论，并截取后三个评论
+		comments = Comment.objects.all()[::-1][:3][::-1]
+
 		username = Wower.objects.get(qq = qq).truename
 
-		c = Context({'status': status, 'names': names, 'dates': dates, 'username': username})
+		c = Context({'status': status, 'names': names, 'dates': dates, 'username': username, 'notice': notice, 'comments': comments})
 		return render_to_response("result_wow.html", c, RequestContext(request))
 
 #该方法用于更新arriving数据
@@ -118,6 +125,27 @@ def get_status():
 		#由于未找到在模板中查询第二字典的有效方法，故采用truename作为键值的方式。这里要求truename无重名
 		curr_date = date.today()
 	return ans
+
+#处理公告栏的变更
+def edit(request):
+	text = request.REQUEST.get("notice")
+	qqnum = request.COOKIES["qq"]
+
+	notice = Notice(qq=qqnum, content=text)
+	notice.save()
+
+	return HttpResponseRedirect("/wow")
+
+#处理评论区的变更
+def comment(request):
+	text = request.REQUEST.get("comment")
+	qq = request.COOKIES["qq"]
+	name = Wower.objects.get(qq = qq).truename
+
+	comment = Comment(name=name, content=text)
+	comment.save()
+
+	return HttpResponseRedirect("/wow")
 
 
 #该方法已更新于2014/7/22，更改了方法名

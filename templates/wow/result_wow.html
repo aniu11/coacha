@@ -13,14 +13,14 @@
 
 		<table class="col-md-4 col-md-offset-9">
 			<tr>
-				<td class="col-md-2"><button class="btn btn-info" data-toggle="modal" data-target="#myModal">填写我的状态</button></td>
+				<td class="col-md-2"><a class="btn btn-info" data-toggle="modal" data-target="#myModal">填写我的状态</a></td>
 				<td class="col-md-1"><a class="btn btn-danger" href="/wow/logout">登出</a></td>
 			</tr>
 		</table>
 
 	</div> 
 
-	<div class="well">
+	<div class="well col-md-8">
 		<table class="table table-bordered table-hover">
 			<th>
 				{% for date_item in dates %}
@@ -45,6 +45,78 @@
 			{% endfor %}
 		</table>
 	</div>
+	<div class="well col-md-3 col-md-offset-1">
+		<div class="panel panel-primary">
+			<div class="panel panel-heading">
+				<h3 class="panel-title">公告</h3>
+			</div>
+			<div class="panel-body">{{notice}}</div>
+			<div class="panel-footer">
+				<a class="" href="" data-toggle="modal" data-target="#editModal"><span class="glyphicon glyphicon-edit"></span></a>
+			</div>
+		</div>
+		<div class="panel panel-primary">
+			<div class="panel panel-heading">
+				<h3 class="panel-title">牢骚墙</h3>
+			</div>				
+			<div class="list-group">
+				{% for comment in comments%}
+					{% ifequal username comment.name%}
+					<a href="#" class="list-group-item list-group-item-info"><h4>{{comment.content}}</h4><p>{{comment.name}}</p></a>
+					{% else %}
+					<a href="#" class="list-group-item"><h4>{{comment.content}}</h4><p>{{comment.name}}</p></a>
+					{% endifequal%}
+				{% endfor%}
+			</div>
+			<div class="panel-footer">
+				<a class="" href="" data-toggle="modal" data-target="#commentModal"><span class="glyphicon glyphicon-comment"></span></a>
+			</div>
+		</div>
+	</div>
+	<div class="modal fade" id="commentModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+					<h4 class="modal-title" id="myModalLabel">有什么话说</h4>
+				</div>
+				<div class="modal-body col-md-offset-1 col-md-10">
+					<form id="commentform" role="form" action="comment" method="post">{% csrf_token %}
+						<div class="form-group">
+							<label for="edit1" class="sr-only">说句话</label>
+							<input type="text" class="form-control" id="edit1" name="comment" placeholder="说句话" required="required">
+						</div>
+					</form>
+				</div>
+				<div class="modal-footer">
+					<button type="submit" class="btn btn-primary" form="commentform">OK，提交</button>
+					<button type="button" class="btn btn-danger" data-dismiss="modal">关闭窗口</button>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+					<h4 class="modal-title" id="myModalLabel">请编辑新的公告</h4>
+				</div>
+				<div class="modal-body col-md-offset-1 col-md-10">
+					<form id="editform" role="form" action="edit" method="post">{% csrf_token %}
+						<div class="form-group">
+							<label for="edit1" class="sr-only">新的公告</label>
+							<input type="text" class="form-control" id="edit1" name="notice" placeholder="新的公告">
+						</div>
+					</form>
+				</div>
+				<div class="modal-footer">
+					<button type="submit" class="btn btn-primary" form="editform">OK，提交</button>
+					<button type="button" class="btn btn-danger" data-dismiss="modal">关闭窗口</button>
+				</div>
+			</div>
+		</div>
+	</div>
 
 	<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 		<div class="modal-dialog">
@@ -57,7 +129,7 @@
 					<form id="infoform" role="form" action="update" method="post">{% csrf_token %}
 						{% for date_item in dates %}
 						<label class="checkbox input-lg">
-							<input type="checkbox" id="checkbox{{date_item.id}}" value="{{date_item.id}}" name="checklist"> {{date_item.date|date:"M/j, D"}}
+							<input type="checkbox" id="checkbox{{date_item.id}}" value="{{date_item.id}}" name="checklist"> {{date_item.date}}
 						</label>
 						{% endfor %}
 					</form>

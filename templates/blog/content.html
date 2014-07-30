@@ -1,0 +1,45 @@
+{% extends "base_coacha.html"%}
+
+{% block title %}
+{% ifequal category '2' %}<title>Coacha|博客|目录|文艺青年</title>{% endifequal%}
+{% ifequal category '1' %}<title>Coacha|博客|目录|程序猴子</title>{% endifequal%}
+{% ifequal category '0' %}<title>Coacha|博客|目录|全部文章</title>{% endifequal%}
+{% endblock %}
+
+{% block body %}
+
+<div id="sidebar" class="sidebar well col-md-3">
+	<ul class="nav nav-pills nav-stacked" role="tablist">
+		<li role="presentation"><a href="/blog">概览</a></li>
+		<li role="presentation" {% ifequal category '2' %}class = "active"{% endifequal%}><a href="content?category=2">文艺青年</a></li>
+		<li role="presentation" {% ifequal category '1' %} class = "active"{% endifequal%}><a href="content?category=1">程序猴子</a></li>
+		<li role="presentation" {% ifequal category '0' %} class = "active"{% endifequal%}><a href="content?category=0">全部文章</a></li>
+		<li role="presentation"><a href="#">留言板</a></li>
+	</ul>
+</div>
+<div  id="main" class="well col-md-8 col-md-offset-1">
+	<!-- <div class="well"> -->
+	{% for blog in blogs%}
+		<div>
+			<span class="col-md-9"><a href="passage?id={{blog.id}}">{{blog.title}}</a></span>
+			<span class="glyphicon glyphicon-time col-md-3">&nbsp{{blog.datetime|date}}</span><br><br>
+		</div>
+	{% empty %}
+	<!-- </div> -->
+	<div class="well">
+		<p class="bg-warning">没有文章！</p>
+	</div>
+	{% endfor %}
+	<div>
+		<ul class="pagination pagination-sm pull-right">
+				{% if blogs.has_previous %}
+				    <li><a href="?page={{ blogs.previous_page_number }}">&laquo</a></li>
+				{% endif %}
+				    <li class="active"><a href="#">第{{ blogs.number }}页，共{{ blogs.paginator.num_pages }}页</a></li>
+				{% if blogs.has_next %}
+				    <li><a href="?page={{ blogs.next_page_number }}">&raquo</a></li>
+				{% endif %}
+		</ul>
+	</div>
+</div>
+{% endblock %}
